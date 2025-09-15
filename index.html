@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Sphere</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="brand">Student <span>Sphere</span></div>
+        <nav>
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#resources">Resources</a></li>
+                <li><a href="#news">News</a></li>
+                <li><a href="#faculty">Faculty</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#resume-analyzer">AI Tools</a></li>
+                <li><a href="#calculators">Calculators</a></li>
+            </ul>
+        </nav>
+        <button id="openGemini" class="btn accent">AI Assistant</button>
+    </header>
+
+    <main>
+        <!-- Hero/Home -->
+        <section id="home" class="hero section">
+            <div class="hero-content">
+                <div class="badge">WELCOME TO STUDENT SPHERE</div>
+                <h1>Where Students and Faculty Meet Resources</h1>
+                <p class="subtitle">A calm, modern hub to upload, share and discover academic materials, calculate CGPA/SGPA, and get AI-powered guidance.</p>
+                <div class="cta-row">
+                    <a href="#resources" class="btn primary">Explore Resources</a>
+                    <button id="openGemini-hero" class="btn accent outline">AI Assistant</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources -->
+        <section id="resources" class="section">
+            <div class="section-header">
+                <div class="badge">02 Resources</div>
+                <h2>Share and Discover Files</h2>
+            </div>
+            <div class="resources-grid">
+                <form id="uploadForm" class="card upload-card" autocomplete="off">
+                    <h3>Upload a file</h3>
+                    <label class="field">
+                        <span>File name</span>
+                        <input required type="text" id="fileName" placeholder="e.g., DBMS Unit 1 Notes" />
+                    </label>
+                    <label class="field">
+                        <span>Category</span>
+                        <select id="fileCategory">
+                            <option>Projects</option>
+                            <option>Assignments</option>
+                            <option>Notes</option>
+                            <option>Previous Year's Papers</option>
+                            <option>PDFs</option>
+                        </select>
+                    </label>
+                    <label class="field">
+                        <span>Choose file</span>
+                        <input required type="file" id="fileInput" />
+                    </label>
+                    <button class="btn primary" type="submit">Upload</button>
+                </form>
+
+                <div class="card search-card">
+                    <h3>Find files</h3>
+                    <div class="search-row">
+                        <input type="search" id="searchInput" placeholder="Search by name..." />
+                        <select id="filterCategory">
+                            <option value="all">All types</option>
+                            <option>Projects</option>
+                            <option>Assignments</option>
+                            <option>Notes</option>
+                            <option>Previous Year's Papers</option>
+                            <option>PDFs</option>
+                        </select>
+                    </div>
+                    <div id="fileList" class="file-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- News & Events -->
+        <section id="news" class="section">
+            <div class="section-header">
+                <div class="badge">03 News</div>
+                <h2>News & Events</h2>
+            </div>
+            <ul id="newsFeed" class="timeline"></ul>
+        </section>
+
+        <!-- Faculty & Support -->
+        <section id="faculty" class="section">
+            <div class="section-header">
+                <div class="badge">04 Faculty</div>
+                <h2>Faculty & Support</h2>
+            </div>
+            <div class="faculty-grid" id="facultyList"></div>
+        </section>
+
+        <section id="support" class="section">
+            <div class="section-header">
+                <div class="badge">05 Support</div>
+                <h2>Contacts</h2>
+            </div>
+            <div class="contacts" id="contactList"></div>
+        </section>
+
+        <!-- AI Resume Analyser -->
+        <section id="resume-analyzer" class="section">
+            <div class="section-header">
+                <div class="badge">06 AI Tools</div>
+                <h2>Resume Analyser</h2>
+            </div>
+            <div class="card">
+                <h3>AI-Powered Resume Analysis</h3>
+                <p class="muted">Get expert feedback on your resume with detailed scoring, strengths analysis, and improvement suggestions.</p>
+                <div class="resume-analyzer-content">
+                    <div class="analyzer-left">
+                        <form id="resumeFormMain" class="resume-form" autocomplete="off">
+                            <label class="field">
+                                <span>Upload your resume</span>
+                                <input type="file" id="resumeInputMain" accept=".pdf,.txt,.md,.rtf" required />
+                            </label>
+                            <button class="btn primary" type="submit">Analyze with AI</button>
+                        </form>
+                    </div>
+                    <div class="analyzer-right">
+                        <div id="resumeResultMain" class="resume-result" hidden>
+                            <div class="score" id="resumeScoreMain">Score: 0</div>
+                            <div id="resumeSummaryMain"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculators -->
+        <section id="calculators" class="section">
+            <div class="section-header">
+                <div class="badge">07 Calculators</div>
+                <h2>CGPA & SGPA Calculators</h2>
+            </div>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="sgpaTab">SGPA</button>
+                <button class="tab-btn" data-tab="cgpaTab">CGPA</button>
+            </div>
+            <div class="tab-panels">
+                <div id="sgpaTab" class="tab-panel show">
+                    <div class="card">
+                        <h3>VTU SGPA (per semester)</h3>
+                        <p class="muted">Enter subjects, credits, and marks (0–100). Grades map per VTU CBCS.</p>
+                        <div id="sgpaRows" class="calc-rows"></div>
+                        <div class="calc-actions">
+                            <button id="addSgpaRow" class="btn secondary">Add Subject</button>
+                            <button id="resetSgpa" class="btn secondary">Reset</button>
+                            <button id="calcSgpa" class="btn primary">Calculate SGPA</button>
+                        </div>
+                        <div id="sgpaCard" class="result-card" hidden>
+                            <div class="result" id="sgpaResult">SGPA: —</div>
+                            <button id="exportSgpa" class="btn accent">Download Result</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="cgpaTab" class="tab-panel">
+                    <div class="card">
+                        <h3>VTU CGPA (across semesters)</h3>
+                        <p class="muted">Enter each semester's SGPA and total credits.</p>
+                        <div id="cgpaRows" class="calc-rows"></div>
+                        <div class="calc-actions">
+                            <button id="addCgpaRow" class="btn secondary">Add Semester</button>
+                            <button id="resetCgpa" class="btn secondary">Reset</button>
+                            <button id="calcCgpa" class="btn primary">Calculate CGPA</button>
+                        </div>
+                        <div id="cgpaCard" class="result-card" hidden>
+                            <div class="result" id="cgpaResult">CGPA: —</div>
+                            <button id="exportCgpa" class="btn accent">Download Result</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div>© <span id="year"></span> Student Sphere</div>
+        <div class="footer-links">
+            <a href="#home">Home</a>
+            <a href="#resources">Resources</a>
+            <a href="#news">News</a>
+            <a href="#faculty">Faculty</a>
+            <a href="#support">Support</a>
+        </div>
+    </footer>
+
+    <!-- AI Chat Modal -->
+    <div id="geminiModal" class="modal" aria-hidden="true" role="dialog" aria-label="AI chat">
+        <div class="modal-content chat">
+            <div class="modal-header">
+                <h3>AI Assistant</h3>
+                <button class="icon-btn" id="closeGemini" aria-label="Close">✕</button>
+            </div>
+            <div id="chatLog" class="chat-log" aria-live="polite"></div>
+            <form id="chatForm" class="chat-input" autocomplete="off">
+                <input id="chatMessage" type="text" placeholder="Ask anything about courses, careers, or campus..." required />
+                <button class="btn accent" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resume Analyzer Modal -->
+    <div id="resumeModal" class="modal" aria-hidden="true" role="dialog" aria-label="Resume analyzer">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>AI Resume Analyzer</h3>
+                <button class="icon-btn" id="closeResume" aria-label="Close">✕</button>
+            </div>
+            <form id="resumeForm" class="resume-form" autocomplete="off">
+                <label class="field">
+                    <span>Upload resume (PDF or text)</span>
+                    <input type="file" id="resumeInput" accept=".pdf,.txt,.md,.rtf" required />
+                </label>
+                <button class="btn primary" type="submit">Analyze with AI</button>
+            </form>
+            <div id="resumeResult" class="resume-result" hidden>
+                <div class="score" id="resumeScore">Score: 0</div>
+                <p id="resumeSummary"></p>
+            </div>
+        </div>
+    </div>
+
+    <button id="openResume" class="floating-btn" title="Resume Analyzer">↗</button>
+
+    <!-- OpenRouter API Integration -->
+    <script src="script.js"></script>
+</body>
+</html>
+
+
